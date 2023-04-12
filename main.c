@@ -23,6 +23,7 @@ int main() {
 
         displayScreen(availableLetters);
         displayHangman(mistakes);
+        printf("Hello");
         _getch();
         
     }
@@ -74,12 +75,49 @@ void displayScreen(char availableLetters[27]) {
 
 void displayHangman(int mistakes) {
 
-    printf("\n   _______    ");
-    printf("\n  |       |   ");
-    printf("\n  |       O   ");
-    printf("\n  |      /|\\ ");
-    printf("\n  |       |   ");
-    printf("\n  |      / \\ ");
-    printf("\n__|__         ");
+    switch (mistakes) {
+        case 0: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |         ");
+                printf("\n  |         ");
+                printf("\n  |         ");
+                printf("\n__|__       "); break;
+        case 1: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |         ");
+                printf("\n  |         ");
+                printf("\n__|__       "); break;
+        case 2: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |      |  ");
+                printf("\n  |         ");
+                printf("\n__|__       "); break;
+        case 3: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |      |  ");
+                printf("\n  |     /   ");
+                printf("\n__|__       "); break;
+        case 4: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |      |  ");
+                printf("\n  |     / \\");
+                printf("\n__|__       "); break;
+        case 5: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |     /|  ");
+                printf("\n  |     / \\");
+                printf("\n__|__       "); break;
+        case 6: printf("\n   ______   ");
+                printf("\n  |      |  ");
+                printf("\n  |      O  ");
+                printf("\n  |     /|\\");
+                printf("\n  |     / \\");
+                printf("\n__|__       ");
+    }
 
 }
