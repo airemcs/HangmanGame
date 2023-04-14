@@ -1,5 +1,3 @@
-__");
-    printf("\n  |  ");
-    printf("\n  |  ");
-    printf("\n  |  ");
-    printf("\n  |  ");
+for (int i = 0; i < 26; i++) {
+        //     if (letter == availableLetters[i]) 
+        // }

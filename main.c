@@ -10,20 +10,28 @@ typedef char string20[21];
 void getRandomWord(string20 secretWord);
 void displayScreen(char availableLetters[27]);
 void displayHangman(int mistakes);
+void displayWord(string20 secretWord, string20 guessedWord);
+char getLetter(char availableLetters[27]);
 
 int main() {
 
-    int bContinueGame = 1, mistakes = 0;
     string20 secretWord, guessedWord;
+    int bContinueGame = 1, mistakes = 0;
     char availableLetters[27] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
 
     getRandomWord(secretWord);
 
     while (bContinueGame == 1) {
 
+        char letter, bIsCorrect = 0;
+
         displayScreen(availableLetters);
         displayHangman(mistakes);
-        printf("Hello");
+        displayWord(secretWord, guessedWord);
+        
+        letter = getLetter(availableLetters);
+        printf("%c", letter);
+        
         _getch();
         
     }
@@ -120,4 +128,36 @@ void displayHangman(int mistakes) {
                 printf("\n__|__       ");
     }
 
+}
+
+void displayWord(string20 secretWord, string20 guessedWord) {
+
+    for (int i = 0 ; i < strlen(secretWord); i++) {
+        if (secretWord[i] != guessedWord[i]) printf(" _");
+        else printf(" %c", guessedWord[i]); 
+    }
+
+    printf("\n\n");
+
+}
+
+char getLetter(char availableLetters[27]) {
+
+    char letter;
+    int bIsValid = 0;
+
+    while (bIsValid != 1) {
+
+        printf("Enter Letter: ");
+        scanf(" %c", &letter);
+
+        if (isalpha(letter) != 0) {
+            if (isalpha(letter) == 2) letter = toupper(letter);
+            bIsValid = 1;
+        }
+
+    }
+
+    return letter;
+    
 }
