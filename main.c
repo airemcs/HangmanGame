@@ -29,9 +29,6 @@ int main() {
         displayHangman(mistakes);
         displayWord(secretWord, guessedWord);
 
-        printf("\n%i %s", strlen(secretWord), secretWord);
-        printf("\n%i %s", strlen(guessedWord), guessedWord);
-
         letter = getLetter(availableLetters);
 
         for (int i = 0; i < 26; i++) {
