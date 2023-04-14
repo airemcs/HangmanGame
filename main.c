@@ -16,7 +16,7 @@ char getLetter(char availableLetters[27]);
 int main() {
 
     string20 secretWord, guessedWord;
-    int bContinueGame = 1, mistakes = 0;
+    int bContinueGame = 1, bIsGuessed = 0, mistakes = 0;
     char availableLetters[27] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
 
     getRandomWord(secretWord);
@@ -28,15 +28,51 @@ int main() {
         displayScreen(availableLetters);
         displayHangman(mistakes);
         displayWord(secretWord, guessedWord);
-        
+
         letter = getLetter(availableLetters);
-        printf("%c", letter);
-        
-        _getch();
+
+        for (int i = 0; i < 26; i++) {
+            if (availableLetters[i] == letter) {
+                availableLetters[i] = '\0';
+                i = 26;
+            }
+        }
+
+        for (int i = 0; i < strlen(secretWord); i++) {
+            if (secretWord[i] == letter) {
+                guessedWord[i] = letter;
+                bIsCorrect = 1;
+            }
+        }
+
+        if (bIsCorrect != 1) mistakes++;
+
+        if (strlen(secretWord) == strlen(guessedWord) - 1) {
+            strcat(guessedWord, "\0");
+        }
+
+        if (mistakes == 6) bContinueGame = 0;
+
+        // DEBUG: The winning condition doesn't work.        
+        if (strcmp(secretWord, guessedWord) == 0 && mistakes < 6) {
+            bIsGuessed = 1;
+            bContinueGame = 0;
+        }
         
     }
 
-    return 0;
+    system("cls");
+
+    printf("\n[Hangman Console] ");
+
+    if (bIsGuessed == 1) printf("\033[32mCongratulations! \033[00mYou have guessed the word!\n");
+    else printf("Oh no.. \033[31mYou hung the DJ\033[00m..\n");
+
+    displayHangman(mistakes);
+    displayWord(secretWord, guessedWord);
+
+    printf("Press enter to continue..");
+    _getch();
 
 }
 
@@ -132,7 +168,7 @@ void displayHangman(int mistakes) {
 
 void displayWord(string20 secretWord, string20 guessedWord) {
 
-    for (int i = 0 ; i < strlen(secretWord); i++) {
+    for (int i = 0 ; i < strlen(secretWord) - 1; i++) {
         if (secretWord[i] != guessedWord[i]) printf(" _");
         else printf(" %c", guessedWord[i]); 
     }
@@ -141,20 +177,27 @@ void displayWord(string20 secretWord, string20 guessedWord) {
 
 }
 
+// DEBUG: It considers two inputs at once.
 char getLetter(char availableLetters[27]) {
 
     char letter;
     int bIsValid = 0;
 
-    while (bIsValid != 1) {
+    while (bIsValid != 2) {
 
         printf("Enter Letter: ");
         scanf(" %c", &letter);
 
         if (isalpha(letter) != 0) {
             if (isalpha(letter) == 2) letter = toupper(letter);
-            bIsValid = 1;
+            bIsValid++;
         }
+
+        for (int i = 0; i < 26; i++) {
+            if (availableLetters[i] == letter) bIsValid++;
+        }
+
+        if (bIsValid != 2) bIsValid = 0;
 
     }
 
