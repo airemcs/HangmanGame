@@ -15,9 +15,9 @@ char getLetter(char availableLetters[27]);
 
 int main() {
 
-    string20 secretWord, guessedWord;
     int bContinueGame = 1, bIsGuessed = 0, mistakes = 0;
     char availableLetters[27] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+    string20 secretWord, guessedWord = {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
 
     getRandomWord(secretWord);
 
@@ -28,6 +28,9 @@ int main() {
         displayScreen(availableLetters);
         displayHangman(mistakes);
         displayWord(secretWord, guessedWord);
+
+        printf("\n%i %s", strlen(secretWord), secretWord);
+        printf("\n%i %s", strlen(guessedWord), guessedWord);
 
         letter = getLetter(availableLetters);
 
@@ -47,14 +50,9 @@ int main() {
 
         if (bIsCorrect != 1) mistakes++;
 
-        if (strlen(secretWord) == strlen(guessedWord) - 1) {
-            strcat(guessedWord, "\0");
-        }
-
         if (mistakes == 6) bContinueGame = 0;
 
-        // DEBUG: The winning condition doesn't work.        
-        if (strcmp(secretWord, guessedWord) == 0 && mistakes < 6) {
+        if (strlen(secretWord) - 1 == strlen(guessedWord) && mistakes < 6) {
             bIsGuessed = 1;
             bContinueGame = 0;
         }
